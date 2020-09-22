@@ -1,0 +1,123 @@
+{% extends 'main/base.html' %}
+{% block content %}
+
+<style>
+
+
+	.cookie-overlay {
+	  position: fixed;
+	  top: 5rem;
+	  left: 1rem;
+	  background: #fff;
+	  z-index: 2051;
+	  line-height: 20px;
+	  font-size: 14px;
+	  border-radius: 6px;
+
+	  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+	  > div:first-child {
+	    width: 458px;
+	  }
+
+	  a {
+	    text-decoration: underline;
+	  }
+
+	  .close-cookies {
+	    cursor: pointer;
+	  }
+
+	  @include media-breakpoint-down(md) {
+	    bottom: 0;
+	    left: 0;
+	    right: 0;
+	    border-radius: 0;
+
+	    > div:first-child {
+	      width: auto;
+	    }
+	  }
+	}
+
+	/*cookie data center align*/
+	.center {
+	  margin: auto;
+	  width: 60%;
+	  padding: 10px;
+	  text-align: center;
+	}
+
+	/*auto fades*/
+	#cookiedata{
+		display:none;
+	}
+
+	.footer {
+	   position: fixed;
+	   left: 0;
+	   bottom: 0;
+	   width: 100%;
+	   color: black;
+	   text-align: center;
+	}
+
+}
+								
+</style>
+
+<!-- display memes -->
+<div id="memes" style="display:none;">
+	{% for i in memes %}
+		<div>
+			<div>{{i.name}}</div>
+			<img src="{{i.url}}" alt="image" height="300">
+			<hr>
+		</div>
+	{% endfor %}
+</div>
+
+<!-- alert -->
+<div id="popup" class="cookie-overlay p-4">
+  	<div class="d-flex">
+    	<div class="mr-3">By clicking the "Accept" button below, the website collects cookies.</div>
+  	</div>
+  	<button id="acceptBtn" class="btn btn-primary mt-3 accept-cookies" onclick="btnClick();">Accept</button>
+  	<button class="btn btn-primary mt-3 accept-cookies" ><a href="{% url 'logout' %}" style="color: white;">Cancel</button>
+</div>
+
+<!--footer-->
+<div class="footer">
+<!--cookie data-->
+	<div id="cookiedata" class="center">
+		<div>
+			Session Id : {{context.cookie_data.sessionid}}
+		</div>
+		<div>
+			Username : {{context.username}}
+		</div>
+		<div>
+			Email Address : {{context.email}}
+		</div>
+		<div>
+			Last Visited : {{context.last_connection}}
+		</div>
+	</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script>
+
+	// buttons functionality
+	function btnClick(){
+	   $("#memes").css("display", "block");
+	   $("#popup").css("display", "none");
+	};
+
+	// auto fade
+	$('#cookiedata').fadeIn('slow').delay(5000).fadeOut('fast');
+
+</script>
+
+{% endblock %}

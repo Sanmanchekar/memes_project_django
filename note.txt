@@ -1,0 +1,12 @@
+Virtual env
+django-env\Scripts\activate
+
+
+Django Admin/Superuser
+user=sushant
+pass=12345
+
+
+Signed up user
+user=myname
+pass=user1234
